@@ -1,11 +1,9 @@
 import pandas as pd 
 import numpy as np
 import time
-import data_functions as data_func
 import patsy as pat
+import eva.data_access.data_functions as data_func
 
-
-#from __main__ import config,data_func,pd,np,time,pat
 def load_data(config):
    
     time_stamp = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -34,7 +32,7 @@ def load_data(config):
 
     #%% load data and transformations
     datafile = config.data_path+config.datafile+"."+config.file_format
-
+    
     if config.file_format=="csv":
         raw_data = pd.read_csv(datafile)
     elif config.file_format=="xls" or config.file_format=="xlsx":
@@ -88,7 +86,7 @@ def load_data(config):
     # number of observations trasining data length
     M = len(data_shifted)
     if M<10: # thin dataset warning
-        print "Warning: Dataset has less than 20 observations.\n"
+        print ("Warning: Dataset has less than 20 observations.\n")
 
     if config.init_train_period==0: # use full data set from the start
         config.init_train_period = M
@@ -104,4 +102,4 @@ def load_data(config):
     ID_long  += "_crossVal-{0}_fullDataCV-{1}_{2}".format(config.CV_name,config.CV_at_last,config.name_add)
     ID_short += "_date-{0}_{1}".format(time_stamp[:10],config.name_add)
 
-    print "\nData loaded successfully.\n"
+    print ("\nData loaded successfully.\n")

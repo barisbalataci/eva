@@ -1,7 +1,8 @@
 
 import os
 cwd = os.getcwd()
-main_path        = 'X:\\your\\path\\'
+print("Current Working Directory : ",cwd)
+main_path        = cwd+'\\'
 data_path        = main_path+'data\\'    # data dir
 code_path        = main_path+'code\\'    # code dir
 out_path         = main_path+'results\\' # output dir
