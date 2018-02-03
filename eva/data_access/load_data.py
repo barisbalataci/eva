@@ -3,6 +3,7 @@ import numpy as np
 import time
 import patsy as pat
 import eva.data_access.data_functions as data_func
+import config.config_UK_CPI as config
 
 def load_data(config):
    
