@@ -1,23 +1,23 @@
-import json
-import os
-from collections import OrderedDict
-#import eva.data_access.load_data as data
-from eva.data_access.data import data
+from config.configuration import get_config
+from eva.data import data
+from eva.mllib.ML import ML_algoritms
 
 
 def main():
-    config=get_config()
-    csvFile=data.loadfrom_excel(os.getcwd()+"\\data\\UK_DATA_23Jan17.xlsx")
+    # get config and set defaults
+    config = get_config()
+    dt = data(config)
 
+    df = dt.loadfrom_excel("./data/UK_DATA.xlsx")
+    print(df.head(5))
 
-    #data.load_data()
+    features = list(["Private_debt", "M4", "GDHI", "GDP", "Labour_prod", "Employment_rate", "Unemployment", "Bank_rate",
+                     "5YrBoYldImplInfl", "ERI", "Comm_idx"])
 
+    algoritm = ML_algoritms(config)
+    model = algoritm.linear_regression(df["CPI"],df[features])
 
-def get_config():
-    config_file = {}
-    with open(os.path.join(os.getcwd() + "\\config", "config.json")) as data_file:
-        config_file = json.load(data_file, object_pairs_hook=OrderedDict)
-    return config_file
+    print("Model coefficients :",model.coef_)
 
 
 if __name__ == "__main__":
