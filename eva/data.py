@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-class data:
+class Data:
 
     def __init__(self, config):
         self.config = config

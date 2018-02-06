@@ -1,14 +1,11 @@
-from eva.mllib.sklearn.ML_algoritms import  ML_algoritms_sklearn
+from eva.mllib.sklearn.ML import Regressor_Sklearn
 
-# from eva.mllib.spark import ML_algoritms
 
-class ML_algoritms:
+class Regressor:
 
     def __init__(self, config):
-        if (config["platform"] == "sklearn"):
-            self.lib = ML_algoritms_sklearn
+        if config["platform"] == "sklearn":
+            self.lib = Regressor_Sklearn()
 
-
-    def linear_regression(self, y, features):
-        return self.lib.linear_regression(y,features)
-
+    def linear(self, input, output):
+        return self.lib.linear(input, output)
