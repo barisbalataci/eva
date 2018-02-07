@@ -1,6 +1,7 @@
 from config.configuration import Config
 from eva.data import Data
-from eva.mllib.ML import Regressor
+from eva.mllib.ML import Regressor, Classifier, Cluster
+
 
 def main():
     # get config and set defaults
@@ -15,6 +16,8 @@ def main():
 
     print("Model coefficients :")
     print(model.coef_)
+
+    print(model.score(data[features], data["CPI"]))
 
 
 if __name__ == "__main__":

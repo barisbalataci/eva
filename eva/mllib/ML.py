@@ -9,3 +9,11 @@ class Regressor:
 
     def linear(self, input, output):
         return self.lib.linear(input, output)
+
+
+class Classifier:
+    pass
+
+
+class Cluster:
+    pass
