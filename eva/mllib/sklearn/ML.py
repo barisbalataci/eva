@@ -10,3 +10,6 @@ class Regressor_Sklearn:
         model = linear_model.LinearRegression()
         model.fit(input, output)
         return model
+
+    def logistic(self, input, output):
+        pass
