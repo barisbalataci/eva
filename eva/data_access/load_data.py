@@ -82,7 +82,12 @@ def load_data():
     data_shifted = data_func.data_framer(data=raw_data.copy(), target=config.target, features=config.features,
                                          index=config.time_var, start_i=config.start_time, end_i=config.end_time,
                                          shift=config.horizon, trafos=trafos, name_trafo=False, drop_missing=True)
-
+    """
+    writer = pd.ExcelWriter('data_shifted.xlsx')
+    data_shifted.to_excel(writer, 'data_shifted')
+    data_shifted.to_excel(writer, 'data_shifted')
+    writer.save()
+    """
     # number of observations trasining data length
     M = len(data_shifted)
     if M < 10:  # thin dataset warning
@@ -95,7 +100,12 @@ def load_data():
     data_no_shift = data_func.data_framer(data=raw_data.copy(), target=config.target, features=config.features, \
                                           index=config.time_var, start_i=config.start_time, end_i=config.end_time, \
                                           shift=0, trafos=trafos, name_trafo=False, drop_missing=True)
-
+    """
+    writer = pd.ExcelWriter('data_no_shift.xlsx')
+    data_no_shift.to_excel(writer, 'data_no_shift')
+    data_no_shift.to_excel(writer, 'data_no_shift')
+    writer.save()
+    """
     # identifiers for later use
     ID_short = "{0}_{1}_{2}-{3}-shift".format(config.target, config.method, config.horizon, config.unit)
     ID_long = ID_short + "_fixedStart-{0}_trainStartPeriod-{1}_{2}".format(config.fixed_start, config.init_train_period,
