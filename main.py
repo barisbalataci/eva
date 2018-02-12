@@ -11,8 +11,24 @@ def main():
 
     # data = data.loadfrom_excel("./data/data_no_shift.xlsx")
 
-    data = pd.DataFrame(Data(config).loadfrom_excel("./data/data_shifted.xlsx"))
+    data = pd.DataFrame(Data(config).loadfrom_excel("./data/data_no_shift.xlsx"))
+
+
+
     input = data[config.input]
+
+    import numpy as np
+    from sklearn.decomposition import PCA
+    X = input
+    pca = PCA(n_components=6)
+    pca.fit(X)
+
+    print(pca.explained_variance_ratio_)
+    print(pca.singular_values_)
+    input = pca.transform(X)
+
+
+
     output = data[config.output]
 
     # linear Regression
@@ -33,9 +49,9 @@ def main():
 
     # SVM Regression
     print("")
-    input_test, input_train, output_test, output_train = get_data_partitions(data)
-    model = Regressor(config).svm(input_train, output_train)
-    write_score_nn(model, input_test, output_test)
+    # input_test, input_train, output_test, output_train = get_data_partitions(data)
+    model = Regressor(config).svm(input, output)
+    write_score_nn(model, input, output)
 
     # Decision Tree Regression
     print("")
