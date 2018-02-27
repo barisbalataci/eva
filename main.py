@@ -9,71 +9,43 @@ import pandas as pd
 def main():
     # get config and set defaults
 
-    # data = data.loadfrom_excel("./data/data_no_shift.xlsx")
-
-    data = pd.DataFrame(Data(config).loadfrom_excel("./data/data_no_shift.xlsx"))
-
-
-
+    data = pd.DataFrame(Data(config).loadfrom_excel("./data/data_shifted.xlsx"))
     input = data[config.input]
-
-    import numpy as np
-    from sklearn.decomposition import PCA
-    X = input
-    pca = PCA(n_components=6)
-    pca.fit(X)
-
-    print(pca.explained_variance_ratio_)
-    print(pca.singular_values_)
-    input = pca.transform(X)
-
-
-
     output = data[config.output]
 
+    fit_models(input, output)
+
+
+def fit_models(input, output):
     # linear Regression
     model = Regressor(config).linear(input, output)
     write_score(model, input, output)
-
     # "Rigde Regression"
     print("")
     model = Regressor(config).ridge(input, output)
     write_score(model, input, output)
-
-    """
-    # "Logistic Regression"
-    print("")
-    model_log = Regressor(config).logistic(input, output)
-    write_score_nn(model_log,input,output)
-     """
-
     # SVM Regression
     print("")
     # input_test, input_train, output_test, output_train = get_data_partitions(data)
     model = Regressor(config).svm(input, output)
     write_score_nn(model, input, output)
-
     # Decision Tree Regression
     print("")
     model = Regressor(config).decision_tree(input, output)
     write_score_nn(model, input, output)
-
     # Random Forest Regression
     print("")
     model = Regressor(config).random_forest(input, output)
     write_score_nn(model, input, output)
-
     # K Nearest Neigbor
     print("")
     model1 = Regressor(config).k_nearest_neigbor(input, output)
     write_score_nn(model1, input, output)
-
     """ Naive-Bayes Gaussian
-    print("")
-    model1 = Regressor(config).naive_bayes(input, output)
-    write_score_nn(model1, input, output)
-    """
-
+        print("")
+        model1 = Regressor(config).naive_bayes(input, output)
+        write_score_nn(model1, input, output)
+        """
     # Multi Layer Perceptron
     # K Nearest Neigbor
     print("")
@@ -100,7 +72,7 @@ def write_score(model, input, output):
     print(model.score(input, output))
 
     print("Absolute Mean error : ", metric.mean_absolute_error(output, model.predict(input)))
-
+    print("Squared Mean error : ", metric.mean_squared_error(output, model.predict(input)))
     print("R^2 Score : ", metric.r2_score(output, model.predict(input)))
 
 
@@ -113,6 +85,7 @@ def write_score_nn(model, input, output):
     """
     print(model.score(input, output))
     print("Absolute Mean error : ", metric.mean_absolute_error(output, model.predict(input)))
+    print("Squared Mean error : ", metric.mean_squared_error(output, model.predict(input)))
     print("R^2 Score : ", metric.r2_score(output, model.predict(input)))
 
     # print(model.loss_)
